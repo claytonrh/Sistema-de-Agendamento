@@ -1,5 +1,3 @@
+import app from './app'; // umas contaste que vai receber (require) o arquivo app
 
-import app from './app';
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
+app.listen(3333); //o app vai ouvir a porta 3333

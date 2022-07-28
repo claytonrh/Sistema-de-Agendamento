@@ -4,18 +4,17 @@ import './database';
 
 class App {
     constructor() {
-        this.server = express();
-        this.middlewares();
-        this.routes();
+      this.server = express();
+      this.middlewares();
+      this.routes();
     }//método
    
     middlewares(){ //middlewares é uma cadeia de responsabilidades
     this.server.use(express.json());
 }
 
-    routes(){
-        this.server.use(routes);
-    }
+routes() {
+    this.server.use(routes);
+  }
 }
-
 export default new App().server;

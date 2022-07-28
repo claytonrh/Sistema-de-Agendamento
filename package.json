@@ -1,16 +1,20 @@
 {
   "name": "projeto",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",    
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon src/server"
+    "dev": "nodemon src/server",
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.20.1"
