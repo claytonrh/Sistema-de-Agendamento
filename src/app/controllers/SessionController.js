@@ -1,12 +1,26 @@
 
 import jwt from 'jsonwebtoken';
-import User from "../models/User";
+import * as Yup from 'yup';
 
+import User from "../models/User";
 import authConfig from '../../config/auth';
 
 class SessionController {
     async store( req, res ) {             // o método store cria sessões/informações e pode ser usado apenas uma vez por classe
-        const { email, password } = req.body;  // { dados que serão desestruturados (informações que serão recebidas) } dentro do corpo da requisição 
+                                          // { dados que serão desestruturados (informações que serão recebidas) } dentro do corpo da requisição   
+        const schema = Yup.object().shape({
+            email: Yup.string().email().required(),            
+            password: Yup.string().required(),
+        })
+
+        if (!(await schema.isValid(req.body))) {
+            return res.status(400).json({
+                message: 'Falaha na validação'
+            })
+        }
+
+
+        const { email, password } = req.body;  
         
         const user = await User.findOne( {
             where: { email }})
@@ -31,7 +45,7 @@ class SessionController {
             token: jwt.sign({ id }, authConfig.
                 secret, {
                     expiresIn: authConfig.expiresIn
-                })
+                }),
         })
     }
 }
